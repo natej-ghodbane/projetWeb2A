@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css.css" />
+  <title>MediMart</title>
+  
+
+</head>
+
+<body>
+
+
+    <header>
+
+        <div class="header">
+            <a href="#default" class="logo">CompanyLogo</a>
+            <div class="header-right">
+              <a href="index.html">Home</a>
+              <a href="#contact">Contact</a>
+              <a href="panier.html">Panier</a>
+              <a href="blog.html">BLOG</a>
+              <a href="login.html">Se Connecter</a>
+            </div>
+          </div>
+          
+   </header>
+   <br>
+
+   <div class="slideshow " style="width: 100% ; height: 500px;">
+    <img class="mySlides" src="image/sh.jpg" >
+    <img class="mySlides" src="image/slide.jpg" >
+    <img class="mySlides" src="image/Cap.jpg">
+  </div>
+  <br><br><br><br><br>
+
+  <div class="row">
+    <div class="column">
+      <div class="card1">
+        <img src="image/cactus.jpg"  style="width:100%">
+        <div class="container">
+          <h2>CACTUS</h2>      
+          <p><button class="button"><a href="cactus.html"> les produits</button></p></a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="column">
+      <div class="card1">
+        <img src="image/plantes.jpg" style="width:100%">
+        <div class="container">
+          <h2>PLANTES</h2>
+         
+          <p><button class="button">voir les produits</button></p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="column">
+      <div class="card1">
+        <img src="image/succulantes.jpg" style="width:100%">
+        <div class="container">
+          <h2>SUCCULANTES</h2>
+         
+          <p><button class="button">voir les produits</button></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+  <center>
+  <div class="mapouter"><div class="gmap_canvas"><iframe width="1080" height="299" id="gmap_canvas" src="https://maps.google.com/maps?q=tunis&t=k&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://putlocker-is.org"></a><br><style>.mapouter{position:relative;text-align:right;height:299px;width:1080px;}</style><a href="https://www.embedgooglemap.net">website google maps</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:299px;width:1080px;}</style></div></div>
+  </center>
+<br><br><br>
+
+  <footer class="site-footer">
+   <center>
+    <div class="foot">
+        <div class="column1">
+            <p class="p">NOTRE BOUTIQUE</p> 
+            <p>Adresse : 15 rue du château</p>
+            <p>Paris, France 75001</p>
+            <p>Tél : 01 23 45 67 89</p>
+            <p>E-mail :  info@monsite.fr</p>   
+        </div>
+
+        <div class="column1">
+            <p class="p">HORAIRES </p> 
+            <p>Lun - Ven : 7 h - 22h</p>
+            <p>​​Samedi : 8h - 22h</p>
+            <p>​Dimanche : 8h - 23h</p>           
+        </div>
+    </div>    
+    </center>
+    
+</footer>
+
+
+<script>
+    var myIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}    
+    x[myIndex-1].style.display = "block";  
+    setTimeout(carousel, 2000); // Change image every 2 seconds
+}
+if (document.readyState == 'loading') {
+    document.addEventListener('DOMContentLoaded', ready)
+} else {
+    ready()
+}
+</script>
+</body>
+</html>
