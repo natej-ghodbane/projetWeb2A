@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<!---Coding By CoderGirl | www.codinglabweb.com--->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Login & Registration Form | CoderGirl</title>
-  <!---Custom CSS File--->
+  <title>Login & Registration Form </title>
+  
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,27 +13,29 @@
     <input type="checkbox" id="check">
     <div class="login form">
       <header>Login</header>
-      <form action="#">
+      <form action="" method="post">
         <input type="text" placeholder="Enter your email">
         <input type="password" placeholder="Enter your password">
-        <a href="#">Forgot password?</a>
+        <a href="">Forgot password?</a>
         <input type="button" class="button" value="Login">
       </form>
       <div class="signup">
-        <span class="signup">Don't have an account?
+          Don't have an account?
          <label for="check">Signup</label>
-        </span>
+
       </div>
     </div>
     <div class="registration form">
       <header>Signup</header>
-      <form action="#">
-        <input type="text" placeholder="Enter your fullname">
-        <input type="text" placeholder="Enter your name">
-        <input type="text" placeholder="Enter your email">
-        <input type="password" placeholder="Create a password">
-        <input type="password" placeholder="Confirm your password">
-        <input type="button" class="button" value="Signup">
+      <form action="" method="get" onsubmit="return test()">
+        <input type="text" name="nom" id="nom" placeholder="Enter your FirstName">
+        <input type="text" name="prenom" id="prenom" placeholder="Enter your LastName">
+        <input type="password" name="Motdepasse" id="Motdepasse" placeholder="Create a password">
+        <input type="password"name="Motdepasse"  id= "Motdepasse1" placeholder="Confirm your password">
+        <input type="text" name="Email" id="Email" placeholder="Enter your email">
+        <input type="text" name="Adresse" id="Adresse" placeholder="Enter your adress">
+        <input type="Occupation" name="Occupation" id="Occupation" placeholder="Enter your occupation ">
+        <input type="submit" class="button" value="Signup">
       </form>
       <div class="signup">
         <span class="signup">Already have an account?
@@ -43,5 +44,6 @@
       </div>
     </div>
   </div>
+  <script src="test.js"></script>
 </body>
 </html>
