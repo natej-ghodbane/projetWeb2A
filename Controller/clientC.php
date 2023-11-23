@@ -1,13 +1,15 @@
 <?php
 
-require '../config.php';
+ require '../../config.php';
+// require 'C:\xampp\htdocs\projet\View\front\config2.php';
+// require '../../Model/Client.php';
 
 class ClientC
 {
 
     public function listClients()
     {
-        $sql = "SELECT * FROM client";
+        $sql = "SELECT * FROM utilisateur";
         $db = config::getConnexion();
         try {
             $liste = $db->query($sql);
@@ -19,7 +21,7 @@ class ClientC
 
     function deleteClient($ide)
     {
-        $sql = "DELETE FROM client WHERE id = :id";
+        $sql = "DELETE FROM utilisateur WHERE id = :id";
         $db = config::getConnexion();
         $req = $db->prepare($sql);
         $req->bindValue(':id', $ide);
@@ -34,16 +36,19 @@ class ClientC
 
     function addClient($client)
     {
-        $sql = "INSERT INTO client  
-        VALUES (NULL, :fn,:ln, :ad,:dob)";
+        $sql = "INSERT INTO utilisateur  
+        VALUES (NULL, :fn,:ln, :ad,:aa,:bb,:cc)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
             $query->execute([
                 'fn' => $client->getFirstName(),
                 'ln' => $client->getLastName(),
-                'ad' => $client->getAddress(),
-                'dob' => $client->getDob()->format('Y/m/d')
+                'ad' => $client->getMotdepasse(),
+                'aa' => $client->getEmail(),
+                'bb' => $client->getAddress(),
+                'cc' => $client->getOccupation()
+                
             ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
@@ -53,7 +58,7 @@ class ClientC
 
     function showClient($id)
     {
-        $sql = "SELECT * from client where idClient = $id";
+        $sql = "SELECT * from utilisateur where id= $id";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -65,28 +70,75 @@ class ClientC
         }
     }
 
-    function updateClient($client, $id)
+   function updateClient($client, $id)
     {
         try {
             $db = config::getConnexion();
             $query = $db->prepare(
-                'UPDATE client SET 
-                    firstName = :firstName, 
-                    lastName = :lastName, 
-                    adress = :adress, 
-                    dob = :dob
-                WHERE idClient= :idClient'
+                'UPDATE utilisateur SET 
+                    nom = :nom, 
+                    prenom= :prenom, 
+                    Motdepasse = :Motdepasse, 
+                    Email = :Email,
+                    Adresse = :Adresse,
+                    Occupation = :Occupation
+                    
+                WHERE id= :id'
             );
             $query->execute([
-                'idClient' => $id,
-                'firstName' => $client->getFirstName(),
-                'lastName' => $client->getLastName(),
-                'adress' => $client->getAddress(),
-                'dob' => $client->getDob()->format('Y/m/d')
+                'id' => $id,
+                'nom' => $client->getFirstName(),
+                'prenom' => $client->getLastName(),
+                'Motdepasse' => $client->getMotdepasse(),
+                'Email' => $client->getEmail(),
+                'Adresse' => $client->getAddress(),
+                'Occupation' => $client->getOccupation()
+
+                
             ]);
             echo $query->rowCount() . " records UPDATED successfully <br>";
         } catch (PDOException $e) {
             $e->getMessage();
         }
     }
+
+
+
+
+    function userExists($Email) {
+        try {
+            $db = config::getConnexion(); 
+    
+            $query = $db->prepare("SELECT COUNT(*) FROM utilisateur WHERE Email = :Email");
+            $query->bindParam(':Email', $Email, PDO::PARAM_STR);
+            $query->execute();
+    
+            $result = $query->fetchColumn();
+    
+            return $result > 0;
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+
+
+    function getPasswordByEmail($Email) {
+        try {
+            $db = config::getConnexion(); 
+    
+            $query = $db->prepare("SELECT Motdepasse FROM utilisateur WHERE Email = :Email");
+            $query->bindParam(':Email', $Email, PDO::PARAM_STR);
+            $query->execute();
+    
+            return $query->fetchColumn();
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+
+
+
+
+
 }
+

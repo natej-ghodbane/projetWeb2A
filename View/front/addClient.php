@@ -1,14 +1,14 @@
 <?php
-
-include '../Controller/ClientC.php';
-include '../model/Client.php';
+include "../../Controller/clientC.php";
+/*include '../Controller/clientC.php';*/
+/*include '../../Model/Client.php';*/
 
 $error = "";
 
-// create client
+
 $client = null;
 
-// create an instance of the controller
+
 $clientC = new ClientC();
 if (
     isset($_POST["nom"]) &&
@@ -17,14 +17,14 @@ if (
     isset($_POST["Motdepasse1"]) &&
     isset($_POST["Email"]) &&
     isset($_POST["Adresse"])&&
-    isset($_POST["Occupation"]) &&
+    isset($_POST["Occupation"]) 
 
 ) {
     if (
         !empty($_POST['nom']) &&
         !empty($_POST["prenom"]) &&
         !empty($_POST["Motdepasse"]) &&
-        !empty($_POST["Motdepasse1"]) &&
+       !empty($_POST["Motdepasse1"]) &&
         !empty($_POST["Email"]) &&
         !empty($_POST["Adresse"]) &&
         !empty($_POST["Occupation"]) 
@@ -33,12 +33,12 @@ if (
         $client = new Client(
             null,
             $_POST['nom'],
-            $_POST['Prenom'],
+            $_POST['prenom'],
             $_POST['Motdepasse'],
-            $_POST['Motdepasse1'],
+    
             $_POST['Email'],
             $_POST['Adresse'],
-            $_POST['Occupation'],
+            $_POST['Occupation']
     
         );
         $clientC->addClient($client);
@@ -73,7 +73,7 @@ if (
                     <label for="nom">First Name:
                     </label>
                 </td>
-                <td><input type="text" name="nom" id="firstName" maxlength="20"></td>
+                <td><input type="text" name="nom" id="nom" maxlength="20"></td>
             </tr>
             <tr>
                 <td>
@@ -92,6 +92,19 @@ if (
                     <input type="text" name="Motdepasse" id="Motdepasse">
                 </td>
             </tr>
+
+            <tr>
+                <td>
+                    <label for="Motdepasse1">confirm password:
+                    </label>
+                </td>
+                <td>
+                    <input type="text" name="Motdepasse1" id="Motdepasse1">
+                </td>
+            </tr>
+
+
+
             <tr>
                 <td>
                     <label for="Email">email:

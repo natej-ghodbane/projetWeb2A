@@ -1,4 +1,9 @@
 <?php
+
+require '../../config.php';
+
+
+
 class Client
 {
     private ?int $id = null;
@@ -7,7 +12,7 @@ class Client
     private ?int $Motdepasse = null;
     private ?string $Adresse = null;
     private ?string $Email = null;
-    private ?DateTimstring $Occupation = null;
+    private ?string $Occupation = null;
 
     public function __construct($id = null, $n, $p, $m,$e,$a, $o)
     {
@@ -44,7 +49,7 @@ class Client
      */
     public function setLastName($nom)
     {
-        $this->lastName = $nom;
+        $this->nom = $nom;
 
         return $this;
     }
@@ -134,17 +139,17 @@ class Client
     /**
      * Get the value of Occupation
      */
-    public function getDob()
+    public function getOccupation()
     {
         return $this->Occupation;
     }
 
     /**
-     * Set the value of Occupation
+     * Set the value of address
      *
      * @return  self
      */
-    public function setDob($Occupation)
+    public function setOccupation($Occupation)
     {
         $this->Occupation = $Occupation;
 

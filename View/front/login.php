@@ -1,7 +1,36 @@
-<?php 
 
-require '../../Controller/ClientC.php';
-//require '../../Model/Client.php';
+
+<?php
+session_start();
+require_once('config2.php');
+require('C:\xampp\htdocs\projet\config.php');
+include 'C:\xampp\htdocs\projet\Controller\clientC.php';
+include '../../Model/Client.php';
+$db=config::getConnexion();
+
+    
+          $Email = $_POST['Email2'];
+          $Motdepasse = $_POST['Motdepasse2'];
+ 
+          if(filter_var($Email, FILTER_VALIDATE_EMAIL))
+          {
+               //$sql = "SELECT * FROM utilisateur WHERE Email = :E mail ";
+               $handle = $pdo->prepare("SELECT * FROM utilisateur");
+               $handle->execute();
+               $res=$handle->fetchAll($db::FETCH_ASSOC);
+               foreach($res as $T){
+                    if($T['Email']==$Email && $Motdepasse==$T['Motdepasse']){
+                         
+                         header('location:index.html');
+                         
+                    }
+               }
+               
+               echo "Email ou motdepasse invalid ";
+          }
+         
+ 
+
 
 $error = "";
 
@@ -35,16 +64,17 @@ if (
             $_POST['nom'],
             $_POST['prenom'],
             $_POST['Motdepasse'],
-            //$_POST['Motdepasse1'],
+           /* $_POST['Motdepasse1'],*/
             $_POST['Email'],
             $_POST['Adresse'],
             $_POST['Occupation'],
     
         );
         $clientC->addClient($client);
-        header('Location:listClient.php');
+        header('Location:index.html');
     } else
         $error = "Missing information";
+
 }
 
 
@@ -63,30 +93,53 @@ if (
 </head>
 <body>
   <div class="container">
+  
     <input type="checkbox" id="check">
     <div class="login form">
       <header>Login</header>
-      <form action="" method="post">
-        <input type="text" placeholder="Enter your email">
-        <input type="password" placeholder="Enter your password">
-        <a href="">Forgot password?</a>
-        <input type="button" class="button" value="Login">
-      </form>
+      
+
+
+
+      <?php 
+                    if(isset($errors) && count($errors) > 0)
+                    {
+                         foreach($errors as $error_msg)
+                         {
+                              echo '<div class="alert alert-danger">'.$error_msg.'</div>';
+                         }
+                    }
+               ?>
+               <form method="POST" action="" >
+                         <input type="text" name="Email2" placeholder="Enter Email" class="form-control">
+                         <input type="password" name="Motdepasse2" placeholder="Enter Password" class="form-control">
+    
+        <a href="">Forgot password?</a> 
+         <input type="submit" name="submit" class="button" value="Login">
+
+
+    </form> 
+
       <div class="signup">
           Don't have an account?
          <label for="check">Signup</label>
-
       </div>
     </div>
+
+
     <div class="registration form">
       <header>Signup</header>
-      <form action="" method="POST" onsubmit="return test()">
+      <form action="" method="POST" >
         <input type="text" name="nom" id="nom" placeholder="Enter your FirstName">
         <input type="text" name="prenom" id="prenom" placeholder="Enter your LastName">
         <input type="password" name="Motdepasse" id="Motdepasse" placeholder="Create a password">
-      
+        <input type="password" name="Motdepasse1" id="Motdepasse1" placeholder="Create a password">
         <input type="text" name="Email" id="Email" placeholder="Enter your email">
         <input type="text" name="Adresse" id="Adresse" placeholder="Enter your adress">
+        <!-- <select name = "Occupation">
+          <option value="client">client</option>
+          <option value="livreur">livreur</option>
+          </select> -->
         <input type="Occupation" name="Occupation" id="Occupation" placeholder="Enter your occupation ">
         <input type="submit" class="button" value="Signup">
       </form>

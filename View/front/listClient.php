@@ -1,5 +1,5 @@
 <?php
-include "../controller/clientC.php";
+include "../../Controller/clientC.php";
 
 $c = new ClientC();
 $tab = $c->listClients();
@@ -9,7 +9,7 @@ $tab = $c->listClients();
 <center>
     <h1>List of clients</h1>
     <h2>
-        <a href="addClient.php">Add Client</a>
+        <a href="addClient.php">add client</a>
     </h2>
 </center>
 <table border="1" align="center" width="70%">
@@ -17,8 +17,10 @@ $tab = $c->listClients();
         <th>Id Client</th>
         <th>First Name</th>
         <th>Last Name</th>
+        <th>password</th>
+        <th>Email</th>
         <th>Address</th>
-        <th>Date of Birth</th>
+        <th>Occupation</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
@@ -29,13 +31,12 @@ $tab = $c->listClients();
     ?>
 
 
-
-
         <tr>
             <td><?= $client['id']; ?></td>
             <td><?= $client['nom']; ?></td>
             <td><?= $client['prenom']; ?></td>
             <td><?= $client['Motdepasse']; ?></td>
+            
             <td><?= $client['Email']; ?></td>
             <td><?= $client['Adresse']; ?></td>
             <td><?= $client['Occupation']; ?></td>
