@@ -22,19 +22,19 @@ class LivraisonC
         return $liste;
     }
 
-    public function delete($id)
+    function delete($id)
     {
 
 
-        $sql = "DELETE from livraison where IdLivraison = $id";
+        $sql = "DELETE FROM livraison WHERE IdLivraison = :id";
         $db = config::getConnexion();
 
         $req = $db->prepare($sql);
+        $req->bindValue(':id',$id);
 
         try {
             $req->execute();
 
-            echo "livraison supprimé";
         } catch (Exception $e) {
             echo ('error' . $e->getMessage());
         }
@@ -42,14 +42,12 @@ class LivraisonC
 
     function addLivraison($livraison)
     {
-        echo "aicha";
-        $sql = "INSERT INTO livraison (IdLivraison,DateLivraison,AdresseLivraison,StatutLivraison) 
-        VALUES (NULL, :IdLivraison,:DateLivraison, :AdresseLivraison,:StatutLivraison)";
+        $sql = "INSERT INTO livraison 
+        VALUES (NULL,:DateLivraison, :AdresseLivraison,:StatutLivraison)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
             $query->execute([
-                'IdLivraison' => $livraison->getIdLivraison(),
                 'DateLivraison' => $livraison->getDateLivraison(),
                 'AdresseLivraison' => $livraison->getAdresseLivraison(),
                 'StatutLivraison' => $livraison->getStatutLivraison(),
@@ -57,7 +55,9 @@ class LivraisonC
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
         }
+   
     }
+    
 
 
     function showLivraison($idLivraison)
@@ -83,11 +83,11 @@ class LivraisonC
                     IdLivraison = :IdLivraison, 
                     DateLivraison =  :DateLivraison, 
                     AdresseLivraison =  :AdresseLivraison, 
-                    StatutLivraiso,= :StatutLivraison,
-                WHERE idLivraison= :idLivraison'
+                    StatutLivraiso,= :StatutLivraison
+                WHERE IdLivraison= :IdLivraison'
             );
             $query->execute([
-                'IdLivraison' => $idLivraison->getIdLivraison(),
+                'IdLivraison' => $idLivraison,
                 'DateLivraison' => $livraison->getDateLivraison(),
                 'AdresseLivraison' => $livraison->getAdresseLivraison(),
                 'StatutLivraison' => $livraison->getStatutLivraison(),

@@ -8,7 +8,7 @@ class Livraison
     private ?string $StatutLivraison = null;
   
 
-    public function __construct($id = null, $d, $a, $s)
+    public function __construct( $id = null,$d, $a, $s)
     {
         $this->IdLivraison = $id;
         $this->DateLivraison = $d;
