@@ -80,16 +80,12 @@ class LivraisonC
             $db = config::getConnexion();
             $query = $db->prepare(
                 'UPDATE livraison SET 
-                    IdLivraison = :IdLivraison, 
-                    DateLivraison =  :DateLivraison, 
-                    AdresseLivraison =  :AdresseLivraison, 
+               
                     StatutLivraiso,= :StatutLivraison
                 WHERE IdLivraison= :IdLivraison'
             );
             $query->execute([
-                'IdLivraison' => $idLivraison,
-                'DateLivraison' => $livraison->getDateLivraison(),
-                'AdresseLivraison' => $livraison->getAdresseLivraison(),
+             
                 'StatutLivraison' => $livraison->getStatutLivraison(),
                 
             ]);
@@ -98,20 +94,6 @@ class LivraisonC
             $e->getMessage();
         }
     }
-
-
-
-
-
-
-
-     
-
-
-
-
-
-
 
 
 

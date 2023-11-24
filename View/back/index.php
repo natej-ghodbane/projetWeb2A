@@ -1,3 +1,14 @@
+
+<?php
+
+include 'c:xampp/htdocs/projetWeb2A/controller/LivraisonC.php';
+include 'c:xampp/htdocs/projetWeb2A/model/Livraison.php';
+
+$livraison = new LivraisonC();
+$tab = $livraison->listLivraisons();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -83,60 +94,37 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Location</th>
-                                            <th>Order status </th>
-                                            <th>Order date</th>
-                                            <th>Price</th>
+                                            <th>idlivraison</th>
+                                            <th>datelivraison</th>
+                                            <th>adresselivraison</th>
+                                            <th>status </th>
                                         </tr>
                                     </thead>
-                                    
-                                    <tbody>
-                                        <tr>
-                                            <td>flen</td>
-                                            <td>flen</td>
-                                            <td>ariana</td>
-                                            <td>in order</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        
-                                    </tbody>
+                                    <?php
+    foreach ($tab as $livraison) {
+    ?>
+     <tr>
+            <td><?= $livraison['IdLivraison']; ?></td>
+            <td><?= $livraison['DateLivraison']; ?></td>
+            <td><?= $livraison['AdresseLivraison']; ?></td>
+            <td><?= $livraison['StatutLivraison']; ?></td>
+            <td><form action="updateLivraison.php" method="post">
+                <input type="submit" name="update" value="update">
+                <input type="hidden" value=<?php echo $livraison['IdLivraison'];?> name="idliv">
+            </form></td>
+            <td>
+                <a href="deletelivraison.php?IdLivraison=<?php echo $livraison['IdLivraison'];?>">supprimer</a>
+            </td>
+        </tr>
+        
+    <?php
+    }
+    ?>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                          table de livraison
-                        </div>
-                        <div class="card-body">
-                            <table id="datatablesSimple">
-                                <thead>
-                                    <tr>
-                                        <th>IdLivraison</th>
-                                        <th>DateLivraison</th>
-                                        <th>AdresseLivraison</th>
-                                        <th>StatutLvraison</th>
-                                    </tr>
-                                </thead>
-                                
-                                <tbody>
-                                    <tr>
-                                        <td>48455a</td>
-                                        <td>22/04/02</td>
-                                        <td>ariana</td>
-                                        <td>non livrée</td>
-                                        
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                    
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
