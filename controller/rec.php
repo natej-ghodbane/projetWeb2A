@@ -1,6 +1,7 @@
 <?php
 
-require '../config.php';
+require 'C:\xampp\htdocs\projetWeb2A\config.php';
+
 
 class reclamation
 {
@@ -17,7 +18,7 @@ class reclamation
         }
     }
 
-    function deleteClient($ide)
+    function deletereclamation($ide)
     {
         $sql = "DELETE FROM reclamation WHERE idrec = :id";
         $db = config::getConnexion();
@@ -31,61 +32,80 @@ class reclamation
         }
     }
 
+  
 
-    function addreclamation($reclamation)
+    function showreclamation($nom,$prenom){
+        $sql = "SELECT * FROM reclamation where nom='$nom' and prenom='$prenom'";
+        $db = config::getConnexion();
+        try{
+            $liste = $db->query($sql);
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+
+
+    function addreclamation()
     {
-        $sql = "INSERT INTO reclamation  
-        VALUES ("", :nom,:prenom, :ville,:sujet)";
+        $date=date("Y-m-d");
+
+        $sql = "INSERT INTO reclamation (nom,prenom,ville,date,sujetrec) 
+        VALUES ( :nom,:prenom, :ville,:date,:sujet)";
         $db = config::getConnexion();
         try {
+            $nom=$_POST['nom'];
+            $prenom=$_POST['prenom'];
+            $ville=$_POST['ville'];
+            $sujet=$_POST['sujet'];
             $query = $db->prepare($sql);
             $query->execute([
-                'nom' => $reclamation->getnom(),
-                'prenom' => $reclamation->getprenom(),
-                'ville' => $reclamation->getville(),
-                'sujet' => $reclamation->getsujet()
-            ]);
+                'nom' => $nom,
+                'prenom' => $prenom,
+                'ville' => $ville,
+                'sujet' => $sujet,
+                'date' => $date
+            ]
+        );
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
         }
     }
 
+   
 
-    function showreclamation($id)
-    {
-        $sql = "SELECT * from reclamation where idrec = $id";
-        $db = config::getConnexion();
-        try {
-            $query = $db->prepare($sql);
-            $query->execute();
-            $client = $query->fetch();
-            return $reclamation;
-        } catch (Exception $e) {
-            die('Error: ' . $e->getMessage());
-        }
-    }
-
-    function updatereclamation($reclamation, $id)
+    function updatereclamation($rec, $id)
     {
         try {
             $db = config::getConnexion();
             $query = $db->prepare(
-                'UPDATE reclamation SET 
-                    nom = :nom, 
-                    prenom = :prenom, 
-                    ville = :ville, 
-                    sujet = :sujet
-                WHERE idrec= :idrec'
+                "UPDATE reclamation SET 
+                    sujetrec = :sujet
+                WHERE `reclamation`.`idrec`= $id"
             );
             $query->execute([
-                'nom' => $reclamation->getnom(),
-                'prenom' => $reclamation->getprenom(),
-                'ville' => $reclamation->getville(),
-                'sujet' => $reclamation->getsujet()
+                'sujet' => $rec->getsujet()
             ]);
             echo $query->rowCount() . " records UPDATED successfully <br>";
         } catch (PDOException $e) {
             $e->getMessage();
         }
     }
+    function showrec($id){
+        $sql = "SELECT * from reclamation where idrec = $id";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $query->execute();
+            $r = $query->fetch();
+            return $r;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
 }
+
+
+
+
+

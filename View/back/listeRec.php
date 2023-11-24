@@ -1,3 +1,6 @@
+<?php 
+include "../../controller/rec.php"; 
+ ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,7 +17,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">MediMart</a>
+            <a class="navbar-brand ps-3" href="index.html">MartMint</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -23,8 +26,7 @@
                     <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                 </div>
-            </form>
-            
+            </form>           
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
@@ -91,27 +93,35 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Location</th>
-                                            <th>Order status </th>
-                                            <th>Order date</th>
-                                            <th>Price</th>
+                                            <th>id</th>
+                                            <th>nom</th>
+                                            <th>prenom</th>
+                                            <th>ville </th>
+                                            <th>date</th>
+                                            <th>sujet</th>
+                                            <th>repondre</th>
                                         </tr>
                                     </thead>
-                                    
-                                    <tbody>
+                                    <?php 
+                                    $c = new reclamation();
+                                    $reclamation = $c->listreclamation();
+                                        foreach ($reclamation as $tab){
+                                ?>
                                         <tr>
-                                            <td>Aziz</td>
-                                            <td>Ben yedder</td>
-                                            <td>ariana</td>
-                                            <td>in order</td>
-                                            <td>2011/04/25</td>
-                                            <td>320,800 TND</td>
+                                            <td><?= $tab['idrec']; ?></td>
+                                            <td><?= $tab['nom']; ?></td>
+                                            <td><?= $tab['prenom']; ?></td>
+                                            <td><?= $tab['ville']; ?></td>
+                                            <td><?= $tab['date']; ?></td>
+                                            <td><?= $tab['sujetrec']; ?></td>
+                                            <td><a href="reponse.php?idrec=<?= $tab['idrec']; ?>"><button>Repondre</a></button></td>
                                         </tr>
-                                        
-                                    </tbody>
+                                        <?php
+    
+} 
+?> 
                                 </table>
+   
                             </div>
                         </div>
                     </div>

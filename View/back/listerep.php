@@ -1,3 +1,6 @@
+<?php 
+include "../../controller/rep.php"; 
+ ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,7 +17,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">MediMart</a>
+            <a class="navbar-brand ps-3" href="index.html">MartMint</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -23,9 +26,9 @@
                     <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                 </div>
-            </form>
-            
+            </form>           
         </nav>
+      
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
@@ -91,27 +94,39 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Location</th>
-                                            <th>Order status </th>
-                                            <th>Order date</th>
-                                            <th>Price</th>
+                                            <th>id reponse</th>
+                                            <th>reponse</th>
+                                            <th>id reclamation</th>
+                    
+                                            <th>update</th>
+                                            <th>delete</th>
                                         </tr>
                                     </thead>
-                                    
-                                    <tbody>
+                                    <?php 
+                                    $c = new reponse();
+                                    $reponse = $c->listereponse();
+                                        foreach ($reponse as $tab){
+                                ?>
                                         <tr>
-                                            <td>Aziz</td>
-                                            <td>Ben yedder</td>
-                                            <td>ariana</td>
-                                            <td>in order</td>
-                                            <td>2011/04/25</td>
-                                            <td>320,800 TND</td>
+                                            <td><?= $tab['idrep']; ?></td>
+                                            <td><?= $tab['reponse']; ?></td>
+                                            <td><?= $tab['idrec']; ?></td>
+                                            <td>
+                                            <form method="POST" action="updaterep.php">
+                                                <input type="submit" name="update" value="Update">
+                                                 <input type="hidden" value=<?php echo $tab['idrep']; ?> name="id">
+                                             </form>
+                                             </td>
+                                            <td>
+                                            <a href="deleteRep.php?id=<?= $tab['idrep']; ?>">Delete</a>
+                                            </td>
                                         </tr>
-                                        
-                                    </tbody>
+                                        <?php
+    
+} 
+?> 
                                 </table>
+   
                             </div>
                         </div>
                     </div>

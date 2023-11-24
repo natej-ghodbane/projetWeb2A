@@ -1,4 +1,3 @@
-
 function test(){
     nom=document.getElementById("nom").value;
     prenom=document.getElementById("prenom").value;
@@ -21,4 +20,5 @@ function test(){
         alert("sujet invalid");
         return false;
     }
+
 }
