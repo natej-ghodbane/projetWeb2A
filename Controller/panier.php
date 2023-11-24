@@ -2,12 +2,12 @@
 
 require 'C:\xampp\htdocs\projetWeb2A\config.php';
 
-class commande
+class panier
 {
 
-    public function listOrders()
+    public function listcart()
     {
-        $sql = "SELECT * FROM orders";
+        $sql = "SELECT * FROM cart";
         $db = config::getConnexion();
         try {
             $liste = $db->query($sql);
@@ -17,9 +17,9 @@ class commande
         }
     }
 
-    function deleteCommande($ide)
+    function deletepanier($ide)
     {
-        $sql = "DELETE FROM orders WHERE id = :id";
+        $sql = "DELETE FROM cart WHERE id = :id";
         $db = config::getConnexion();
         $req = $db->prepare($sql);
         $req->bindValue(':id', $ide);
@@ -32,18 +32,18 @@ class commande
     }
 
 
-    function addorders($orders)
+    function addcart($cart)
     {
-        $sql = "INSERT INTO orders  
+        $sql = "INSERT INTO cart  
         VALUES (NULL, :nom,:prenom, :email,:tel)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
             $query->execute([
-                'nom' => $orders->getNom(),
-                'prenom' => $orders->getPrenom(),
-                'email' => $orders->getEmail(),
-                'tel' => $orders->getTel(),
+                'nom' => $cart->getNom(),
+                'prenom' => $cart->getPrenom(),
+                'email' => $cart->getEmail(),
+                'tel' => $cart->getTel(),
             ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
@@ -51,32 +51,32 @@ class commande
     }
 
 
-    function showOrders($id)
+    function showcart($id)
     {
-        $sql = "SELECT * from orders where id = $id";
+        $sql = "SELECT * from cart where id = $id";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
             $query->execute();
-            $orders = $query->fetch();
-            return $orders;
+            $cart = $query->fetch();
+            return $cart;
         } catch (Exception $e) {
             die('Error: ' . $e->getMessage());
         }
     }
 
-    function updatecommande($order,$id)
+    function updatepanier($p,$id,$sta)
     {
         try {
             $db = config::getConnexion();
             $query = $db->prepare(
-                "UPDATE orders SET 
-                status = :sta 
-                WHERE `orders`.`id` = $id"
+                "UPDATE cart SET 
+                qty = :qty 
+                WHERE `cart`.`id` = $id"
             );
 
             $query->execute([
-                'sta' => $order->getstatus()
+                'qty' => $p->getqty()
             ]
             );
 

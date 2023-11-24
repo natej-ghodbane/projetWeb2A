@@ -1,3 +1,11 @@
+<?php 
+
+include 'C:\xampp\htdocs\projetWeb2A\Controller\panier.php';
+
+$p = new panier();
+$tab = $p->listcart();
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -32,13 +40,28 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="index.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             
                         </div>
-                        <a href="commande.php">liste commande</a>
+                        <div class="nav">
+                            <a class="nav-link" href="index.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Order
+                            </a>
+                            
+                        </div>
+                        <div class="nav">
+                            <a class="nav-link" href="listecart.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Cart
+                            </a>
+                            
+                        </div>
+
+                        
                     </div>
                    
                     <div class="sb-sidenav-footer">
@@ -86,27 +109,41 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Location</th>
-                                            <th>Order status </th>
-                                            <th>Order date</th>
-                                            <th>Price</th>
+                                            <th>id</th>
+                                            <th>product_id</th>
+                                            <th>price</th>
+                                            <th>qty</th>
+                                            <th>update </th>
+                                            <th>action</th>       
                                         </tr>
                                     </thead>
-                                    
-                                    <tbody>
+                                    <?php 
+                                  
+                                        foreach ($tab as $panier){
+                                ?>
                                         <tr>
-                                            <td>flen</td>
-                                            <td>flen</td>
-                                            <td>ariana</td>
-                                            <td>in order</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                            <td><?= $panier['id']; ?></td>
+                                            <td><?= $panier['product_id']; ?></td>
+                                            <td><?= $panier['price']; ?></td>
+                                            <td><?= $panier['qty']; ?></td>
+                                            
+                                            <td align="center">
+                                                <form method="POST" action="updatepanier.php">
+                                                    <input type="submit" name="update" value="Update">
+                                                    <input type="hidden" value=<?PHP echo $panier['id']; ?> name="idpanier">
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <a href="deletepanier.php?id=<?php echo $panier['id']; ?>">delete</a>
+                                            </td>
                                         </tr>
-                                        
-                                    </tbody>
+                                        <?php
+    
+
+}
+?> 
                                 </table>
+   
                             </div>
                         </div>
                     </div>

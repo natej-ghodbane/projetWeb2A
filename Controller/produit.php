@@ -48,7 +48,7 @@ class Produit
         try {
             $db = config::getConnexion();
             $query = $db->prepare(
-                "UPDATE products SET quantité = $quant WHERE idClient= $id "
+                "UPDATE `products` SET `quantité` = $quant WHERE `products`.`id` = $id"
             );
             $query->execute();
             echo $query->rowCount() . " records UPDATED successfully <br>";
