@@ -8,7 +8,7 @@ class config
         try {
 
             $pdo = new PDO(
-                'mysql:host=localhost;dbname=shop_db',
+                'mysql:host=localhost;dbname=pw',
                 'root',
                 '',
 

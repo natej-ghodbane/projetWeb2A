@@ -1,11 +1,41 @@
-<?php 
+<?php
 
 include 'C:\xampp\htdocs\projetWeb2A\Controller\panier.php';
+include 'C:\xampp\htdocs\projetWeb2A\Model\Cpanier.php';
+$error = "";
 
-$p = new panier();
-$tab = $p->listcart();
+// create panier
 
- ?>
+// create an instance of the controller
+$panierC = new panier();
+
+
+if (
+    isset($_POST["qty"]) 
+ 
+) {
+    if (
+        !empty($_POST['qty']) 
+        
+    ) {
+        $comm = new panierM(
+            $_POST['idpanier'],
+            $_POST['userid'],
+            $_POST['product_id'],
+            $_POST['price'],
+            $_POST['qty']
+            
+        );
+        $panierC->updatepanier($comm,$_POST['idpanier'],$_POST['qty']);
+
+        header('Location:listecart.php');
+    } else
+        $error = "Missing information";
+}
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -71,83 +101,51 @@ $tab = $p->listcart();
                 </nav>
             </div>
             <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
-                        <div class="row">
-                            
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area me-1"></i>
-                                        Profit Area
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        Profit Graph
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Order Table
-                            </div>
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>id</th>
-                                            <th>product_id</th>
-                                            <th>price</th>
-                                            <th>qty</th>
-                                            <th>update </th>
-                                            <th>action</th>       
-                                        </tr>
-                                    </thead>
-                                    <?php 
-                                  
-                                        foreach ($tab as $panier){
-                                ?>
-                                        <tr>
-                                            <td><?= $panier['id']; ?></td>
-                                            <td><?= $panier['product_id']; ?></td>
-                                            <td><?= $panier['price']; ?></td>
-                                            <td><?= $panier['qty']; ?></td>
-                                            
-                                            <td align="center">
-                                                <form method="POST" action="updatepanierr.php">
-                                                    <input type="submit" name="update" value="Update">
-                                                    <input type="hidden" value=<?PHP echo $panier['id']; ?> name="idpanier">
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <a href="deletepanier.php?id=<?php echo $panier['id']; ?>">delete</a>
-                                            </td>
-                                        </tr>
-                                        <?php
-    
+            <main>
+            <?php
+    if (isset($_POST['idpanier'])) {
+        $panier = $panierC->showcart($_POST['idpanier']);
 
-}
-?> 
-                                </table>
-   
-                            </div>
-                        </div>
-                    </div>
-                </main>
+    ?>
+
+<form action="" method="POST">
+            <table>
+                <tr>
+                    <td><label for="nom">Id :</label></td>
+                    <td>
+                        <input type="text" id="idpanier" name="idpanier" readonly value="<?php echo $_POST['idpanier'] ?>" readonly />
+                        <span id="erreurNom" style="color: red"></span>
+                    </td>
+                </tr>
+                <tr> <td><label for="nom">userid :</label></td>
+                    <td><input type="text" name="userid" readonly value="<?php echo $panier['user_id']; ?>"></td></tr>
+                <tr> <td><label for="nom">product_id:</label></td>
+                <td><input type="text" name="product_id" readonly value="<?php echo $panier['product_id']; ?>"></td></tr>
+                <tr> <td><label for="nom">price:</label></td>
+                <td><input type="text" name="price" readonly value="<?php echo $panier['price']; ?>"></td></tr>
+                <tr> <td><label for="nom">qty :</label></td>
+                <td><input type="text" name="qty" id="q" value="<?php echo $panier['qty']; ?>"></td></tr>
+               
+                <td>
+                    <input type="submit"   onclick="validerQuantité()" value="Save">
+                </td>
+                <td>
+                    <input type="reset" value="Reset">
+                </td>
+            </table>
+
+        </form>
+    <?php
+    }
+    ?>
+      
+
+
+
+
+
+
+            </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
@@ -158,6 +156,7 @@ $tab = $p->listcart();
                 </footer>
             </div>
         </div>
+        <script src="inscription.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

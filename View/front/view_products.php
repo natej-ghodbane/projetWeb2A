@@ -75,7 +75,7 @@ if(isset($_POST['add_to_cart'])){
       
          foreach ($produit as $p){
    ?>
-   <form action="" method="POST" class="box" >
+   <form action="" method="POST" class="box" onsubmit="return validerQuantité()">
       <img src="project_assets/<?= $p['image']; ?>" class="image" alt="">
       <h3 class="name"><?= $p['name'] ?></h3>
       <input type="hidden" name="product_id" value="<?= $p['id']; ?>">
@@ -83,7 +83,7 @@ if(isset($_POST['add_to_cart'])){
          <p class="price">TND </i><?= $p['price'] ?></p>
          <input type="number" id="q" name="qty" value="1" class="qty">
       </div>
-      <input type="submit" onclick="validerQuantité()" name="add_to_cart" value="add to cart" class="btn">
+      <input type="submit"  name="add_to_cart" value="add to cart" class="btn">
       <a href="checkout.php?get_id=<?= $p['id']; ?>" class="delete-btn">buy now</a>
    </form>
    <?php

@@ -121,6 +121,7 @@ $tab = $p->listOrders();
                                             <th>qty </th>
                                             <th>date</th>
                                             <th>status</th>
+                                            <th>idapn</th>
                                             <th>modifier</th>
                                             <th>action</th>
                                             
@@ -143,8 +144,9 @@ $tab = $p->listOrders();
                                             <td><?= $commande['qty']; ?></td>
                                             <td><?= $commande['date']; ?></td>
                                             <td><?= $commande['status']; ?></td>
+                                            <td><?= $commande['idpan']; ?></td>
                                             <td align="center">
-                                                <form method="POST" action="updatecommande.php">
+                                                <form method="POST" action="update.php">
                                                     <input type="submit" name="update" value="Update">
                                                     <input type="hidden" value=<?PHP echo $commande['id']; ?> name="idcommande">
                                                 </form>

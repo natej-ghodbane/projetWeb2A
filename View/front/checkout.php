@@ -27,8 +27,8 @@ if(isset($_POST['place_order'])){
       $get_product->execute([$_GET['get_id']]);
       if($get_product->rowCount() > 0){
          while($fetch_p = $get_product->fetch(PDO::FETCH_ASSOC)){
-            $insert_order = $conn->prepare("INSERT INTO `orders`(id, user_id, name, number, email, address, address_type, method, product_id, price, qty) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
-            $insert_order->execute([create_unique_id(), $user_id, $name, $number, $email, $address, $address_type, $method, $fetch_p['id'], $fetch_p['price'], 1]);
+            $insert_order = $conn->prepare("INSERT INTO `orders`(id, user_id, name, number, email, address, address_type, method, product_id, price, qty,idpan) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+            $insert_order->execute([create_unique_id(), $user_id, $name, $number, $email, $address, $address_type, $method, $fetch_p['id'], $fetch_p['price'], 1,62]);
             header('location:orders.php');
          }
       }else{
@@ -39,21 +39,21 @@ if(isset($_POST['place_order'])){
 
       while($f_cart = $verify_cart->fetch(PDO::FETCH_ASSOC)){
 
-         $insert_order = $conn->prepare("INSERT INTO `orders`(id, user_id, name, number, email, address, address_type, method, product_id, price, qty) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
-         $insert_order->execute([create_unique_id(), $user_id, $name, $number, $email, $address, $address_type, $method, $f_cart['product_id'], $f_cart['price'], $f_cart['qty']]);
+         $insert_order = $conn->prepare("INSERT INTO `orders`(id, user_id, name, number, email, address, address_type, method, product_id, price, qty,idpan) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+         $insert_order->execute([create_unique_id(), $user_id, $name, $number, $email, $address, $address_type, $method, $f_cart['product_id'], $f_cart['price'], $f_cart['qty'], $f_cart['id']]);
 
       }
 
-      if($insert_order){
+     /* if($insert_order){
          $delete_cart_id = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
          $delete_cart_id->execute([$user_id]);
          header('location:orders.php');
-      }
-
+      }*/
+      header('location:orders.php');
    }else{
       $warning_msg[] = 'Your cart is empty!';
    }
-
+ 
 }
 
 ?>
@@ -82,12 +82,12 @@ if(isset($_POST['place_order'])){
 
    <div class="row">
 
-      <form action="" method="POST" >
+      <form action="" method="POST"  >
          <h3>billing details</h3>
          <div class="flex">
             <div class="box">
                <p>your name <span>*</span></p>
-               <input type="text" name="name" id="n"  placeholder="enter your name" class="input">
+               <input type="text" name="name" id="nom"  placeholder="enter your name" class="input">
                <p>your number <span>*</span></p>
                <input type="number" name="number" id="number"  placeholder="enter your number" class="input" >
                <p>your email <span>*</span></p>
@@ -110,9 +110,9 @@ if(isset($_POST['place_order'])){
                <p>address line 02 <span>*</span></p>
                <input type="text" name="street" id="ad1" placeholder="e.g. street name & locality" class="input">
                <p>city name <span>*</span></p>
-               <input type="text" name="city" id="ad1"  placeholder="enter your city name" class="input">
+               <input type="text" name="city" id="ad2"  placeholder="enter your city name" class="input">
                <p>country name <span>*</span></p>
-               <input type="text" name="country" id="ad1"  placeholder="enter your country name" class="input">
+               <input type="text" name="country" id="ad3"  placeholder="enter your country name" class="input">
                <p>pin code <span>*</span></p>
                <input type="number" name="pin_code" id="q"  placeholder="e.g. 123456" class="input" >
             </div>
@@ -180,7 +180,7 @@ if(isset($_POST['place_order'])){
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
-<script src="java.js"></script>
+<script src="test.js"></script>
 
 
 

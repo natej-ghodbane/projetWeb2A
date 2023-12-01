@@ -16,9 +16,9 @@ if(isset($_GET['get_id'])){
 }
 
 if(isset($_POST['cancel'])){
-
-   $update_orders = $conn->prepare("UPDATE `orders` SET status = ? WHERE id = ?");
-   $update_orders->execute(['canceled', $get_id]);
+   //DELETE FROM orders WHERE `orders`.`id` = 106 » ?
+   $update_orders = $conn->prepare("DELETE FROM `orders` WHERE id = ?");
+   $update_orders->execute([$get_id]);
    header('location:orders.php');
 
 }

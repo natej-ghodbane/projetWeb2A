@@ -4,7 +4,7 @@ function validerQuantité(){
     var max = 9;
     if(q < min || q > max ){
         alert("minimum 1 maximum 9");
-       
+       return false;
     } 
     
     
