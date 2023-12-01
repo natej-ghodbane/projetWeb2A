@@ -7,7 +7,7 @@
 class ClientC
 {
 
-    public function listClients()
+    public static function listClients()
     {
         $sql = "SELECT * FROM utilisateur";
         $db = config::getConnexion();

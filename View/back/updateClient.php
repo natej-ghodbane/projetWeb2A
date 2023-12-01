@@ -56,7 +56,7 @@ if (
 </head>
 
 <body>
-    <button><a href="listClient.php">Back to list</a></button>
+    <button><a href="index.php">Back to list</a></button>
     <hr>
 
     <div id="error">

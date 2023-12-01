@@ -2,11 +2,21 @@
 
 <?php
 session_start();
-require_once('config2.php');
-require('C:\xampp\htdocs\projet\config.php');
-include 'C:\xampp\htdocs\projet\Controller\clientC.php';
+
+//require('C:\xampp\htdocs\projet\config.php');
+include 'C:\xampp\htdocs\projetghalia\projet\Controller\clientC.php';
 include '../../Model/Client.php';
+require_once('config2.php');
 $db=config::getConnexion();
+
+   
+if (isset($_SESSION['Email'])) {
+  header('Location:indexx.php');
+ exit();
+      
+}else if($_POST['submit']){
+
+
 
     
           $Email = $_POST['Email2'];
@@ -15,22 +25,26 @@ $db=config::getConnexion();
           if(filter_var($Email, FILTER_VALIDATE_EMAIL))
           {
                //$sql = "SELECT * FROM utilisateur WHERE Email = :E mail ";
-               $handle = $pdo->prepare("SELECT * FROM utilisateur");
-               $handle->execute();
-               $res=$handle->fetchAll($db::FETCH_ASSOC);
-               foreach($res as $T){
-                    if($T['Email']==$Email && $Motdepasse==$T['Motdepasse']){
-                         
-                         header('location:index.html');
-                         
-                    }
-               }
+               $res=clientC::listClients($db);
+              
+               foreach($res as $t){
+                if($t["Email"]==$_POST["Email2"] && $t["Motdepasse"]==$_POST["Motdepasse2"]){
+                    
+                  $_SESSION['id']=$t['id'];
+                       
+                 
+                   
+                    $_SESSION['Email']=$_POST["Email2"];
+                    header("location:dashboard.php");
+                   
+                }
+            }
                
                echo "Email ou motdepasse invalid ";
           }
          
  
-
+        }
 
 $error = "";
 
@@ -129,7 +143,7 @@ if (
 
     <div class="registration form">
       <header>Signup</header>
-      <form action="" method="POST" >
+      <form action="" method="POST" onsubmit="return test()" >
         <input type="text" name="nom" id="nom" placeholder="Enter your FirstName">
         <input type="text" name="prenom" id="prenom" placeholder="Enter your LastName">
         <input type="password" name="Motdepasse" id="Motdepasse" placeholder="Create a password">

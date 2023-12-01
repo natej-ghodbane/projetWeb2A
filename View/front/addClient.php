@@ -1,5 +1,6 @@
 <?php
 include "../../Controller/clientC.php";
+include 'C:\xampp\htdocs\projet\Model\Client.php';
 /*include '../Controller/clientC.php';*/
 /*include '../../Model/Client.php';*/
 
@@ -35,7 +36,6 @@ if (
             $_POST['nom'],
             $_POST['prenom'],
             $_POST['Motdepasse'],
-    
             $_POST['Email'],
             $_POST['Adresse'],
             $_POST['Occupation']

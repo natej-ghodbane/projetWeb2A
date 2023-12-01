@@ -36,7 +36,6 @@ $tab = $c->listClients();
             <td><?= $client['nom']; ?></td>
             <td><?= $client['prenom']; ?></td>
             <td><?= $client['Motdepasse']; ?></td>
-            
             <td><?= $client['Email']; ?></td>
             <td><?= $client['Adresse']; ?></td>
             <td><?= $client['Occupation']; ?></td>
