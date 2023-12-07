@@ -1,5 +1,10 @@
 <?php
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+require 'C:\xampp\htdocs\projetWeb2A\View\front\phpmailer\src\Exception.php';
+require 'C:\xampp\htdocs\projetWeb2A\View\front\phpmailer\src\PHPMailer.php';
+require 'C:\xampp\htdocs\projetWeb2A\View\front\phpmailer\src\SMTP.php';
 include 'C:\xampp\htdocs\projetWeb2A\config.php';
 $conn = config::getConnexion();
 if(isset($_COOKIE['user_id'])){
@@ -43,7 +48,27 @@ if(isset($_POST['place_order'])){
          $insert_order->execute([create_unique_id(), $user_id, $name, $number, $email, $address, $address_type, $method, $f_cart['product_id'], $f_cart['price'], $f_cart['qty'], $f_cart['id']]);
 
       }
+      $mail = new PHPMailer(true);
 
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true ;
+    $mail->Username = 'natej.ghodbane@esprit.tn' ;
+    $mail->Password = 'tlvzttgrydgrkauv' ;
+    $mail->SMTPSecure = 'ssl' ;
+    $mail->Port = 465 ;
+
+
+    $mail->SetFrom('natej.ghodbane@esprit.tn') ;
+
+    $mail->AddAddress($_POST["email"]) ;
+
+    $mail->isHTML(true) ;
+
+    $mail->Subject = "commande" ;
+    $mail->Body = "votre commande est en cours de livraison" ;
+
+    $mail->send() ;
      /* if($insert_order){
          $delete_cart_id = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
          $delete_cart_id->execute([$user_id]);
@@ -67,7 +92,8 @@ if(isset($_POST['place_order'])){
    <title>Checkout</title>
 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-   
+   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
    <link rel="stylesheet" href="css/style.css">
    <link rel="stylesheet" href="css.css" />
 
@@ -114,10 +140,11 @@ if(isset($_POST['place_order'])){
                <p>country name <span>*</span></p>
                <input type="text" name="country" id="ad3"  placeholder="enter your country name" class="input">
                <p>pin code <span>*</span></p>
-               <input type="number" name="pin_code" id="q"  placeholder="e.g. 123456" class="input" >
+               <input type="number" name="pin_code" id="q"  placeholder="e.g. 123456" class="input" ></div>
+               <div class="g-recaptcha" data-sitekey="6LeVKyopAAAAAMeKQFGy_mx252xbUHAQxfaZzeAJ"></div>
             </div>
-         </div>
-         <input type="submit" value="place order" name="place_order" class="btn">
+         
+         <input type="submit" value="place order" id="sub" name="place_order" class="btn">
       </form>
 
       <div class="summary">
@@ -186,3 +213,15 @@ if(isset($_POST['place_order'])){
 
 </body>
 </html>
+<script>
+$(document).on('click' , '#sub' , function(){
+
+var response = grecaptcha.getResponse();
+if(response.length==0){
+   alert("please verify you are not a robot")
+   return false;
+}
+})
+
+
+</script>

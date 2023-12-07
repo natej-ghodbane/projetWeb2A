@@ -7,7 +7,9 @@ if(isset($_COOKIE['user_id'])){
 }else{
    setcookie('user_id', create_unique_id(), time() + 60*60*24*30);
 }
-
+if(isset($_POST['aa'])){
+   header('location:genpdf.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -56,12 +58,15 @@ if(isset($_COOKIE['user_id'])){
    <?php
             }
          }
-      }
+         }
    }else{
       echo '<p class="empty">no orders found!</p>';
+      
    }
    ?>
-
+   <form action="" method="POST"  >
+   <input type="submit" value="enregistrer pdf" name="aa" class="btn">
+   </form>
    </div>
 
 </section>
