@@ -1,7 +1,11 @@
 <?php
-include 'c:xampp/htdocs/projetWeb2A/controller/LivraisonC.php';
-include 'c:xampp/htdocs/projetWeb2A/model/Livraison.php';
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+include 'C:/xampp/htdocs/projetWeb2A/controller/LivraisonC.php';
+include 'C:/xampp/htdocs/projetWeb2A/model/Livraison.php';
+require 'C:\xampp\htdocs\projetWeb2A\View\front\phpmailer\PHPMailer\src\Exception.php';
+require 'C:\xampp\htdocs\projetWeb2A\View\front\phpmailer\PHPMailer\src\PHPMailer.php';
+require 'C:\xampp\htdocs\projetWeb2A\View\front\phpmailer\PHPMailer\src\SMTP.php';
 
 $error = "";
 
@@ -12,23 +16,47 @@ $livraison = null;
 
 $livraisonR = new LivraisonC();
 if (
-    isset($_POST["date"]) &&
     isset($_POST["adresse"]) &&
     isset($_POST["statut"])
 ) {
     if (
-        !empty($_POST["date"]) &&
         !empty($_POST["adresse"]) &&
         !empty($_POST["statut"])
     ) {
         $livraison = new Livraison(
             null,
-            $_POST['date'],
             $_POST['adresse'],
             $_POST['statut']
         );
         $livraisonR->addLivraison($livraison);
-        header('Location:listLivraison.php');
+        if(isset($_POST["submit"])){
+          $email=$_POST["email"];
+          $mail = new PHPMailer(true);
+
+          $mail->isSMTP();
+          $mail->Host = 'smtp.gmail.com';
+          $mail->SMTPAuth = true;
+          $mail->Username = 'elyess.zormati@esprit.tn';
+          $mail->Password = 'mgcuwixdieguquqx'; // Use App Password if using 2-step verification
+          $mail->SMTPSecure = 'tls'; // Use TLS instead of SSL
+          $mail->Port = 587; // TLS port
+      
+          $mail->setFrom('elyess.zormati@esprit.tn');
+      
+          // Check if the email key is set in the POST data
+      
+              $mail->addAddress($email);
+      
+              $mail->isHTML(true);
+      
+              $mail->Subject = "livraison recue";
+              $mail->Body = " votre livraison est traitée";
+      
+              $mail->send();
+              header('Location:listLivraison.php');
+        }
+       
+        
     } else
         $error = "Missing information";
 }
@@ -42,7 +70,7 @@ if (
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css.css" />
-    <title>reclamation</title>
+    <title>ajout</title>
     <style>
         * {
           box-sizing: border-box;
@@ -145,38 +173,33 @@ if (
     </div>
     <h1>formulaire livraison</h1>
 
-    <form action="" method="post" onsubmit="return validerdatelivraison()">
+    <form action="" method="POST" >
 
 
         <table>
            
             <tr>
-                <td><label for="date">DateLivraison</label></td>
-                <td>
-                    <input type="date" id="date" name="date" />
-                </td>
-            </tr>
-            <tr>
                 <td><label for="adresse"  >AdresseLivraison</label></td>
                 <td>
-                   <textarea name="adresse" id="adresse" cols="30" rows="10" maxlength="30"></textarea> 
-                   <span id="erreurAdresse" style="color: red"></span>
+                   <input type="text" name="adresse" > 
+                    
                 </td>
             </tr>
             <tr>
-                <td><label for="telephone">StatutLivraison</label></td>
-                <td>
-                    <input type="radio" id="statut" name="statut" checked />
-                    non livrée</td>
-                    
-                
-                <td><input type="radio" id="statut" name="statut">livrée</td>
+              
+            <td><label for="mail">mail</label></td>
+            <td><input type="email" name="email"></td>
+              
             </tr>
-            
-                <td>
-                <button id="mybtn" onclick="valideradresse()">valider</button>
-            </td>
-           
+            <tr>
+                <td><label for="statut">StatutLivraison</label></td>
+                <td><input type="text" id="statut" name="statut" value="non livrée" /></td>
+                
+            </tr>
+            <tr>
+            <td><input type="submit" value="valider" name="submit"></td>
+            </tr>
+      
         </table>
 
     </form>

@@ -3,15 +3,15 @@
 class Livraison
 {
     private ?int $IdLivraison= null;
-    private ?string $DateLivraison = null;
+   
     private ?string $AdresseLivraison = null;
     private ?string $StatutLivraison = null;
   
 
-    public function __construct( $id = null,$d, $a, $s)
+    public function __construct( $id, $a, $s )
     {
         $this->IdLivraison = $id;
-        $this->DateLivraison = $d;
+    
         $this->AdresseLivraison= $a;
         $this->StatutLivraison = $s;
     }
@@ -23,10 +23,7 @@ class Livraison
     }
 
 
-    public function getDateLivraison()
-    {
-        return $this->DateLivraison;
-    }
+   
 
     public function getAdresseLivraison()
     {
@@ -44,13 +41,7 @@ class Livraison
         return $this;
     }
 
-    public function setdate($DateLivraison)
-    {
-        $this->DateLivraison= $DateLivraison;
-
-        return $this;
-    }
-
+  
     public function setadresse($AdresseLivraison)
     {
         $this->AdresseLivraison= $AdresseLivraison;

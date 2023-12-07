@@ -91,49 +91,60 @@
   
 </header>
 <br>
-<?php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Livraisons</title>
+</head>
+<body>
 
-include 'c:xampp/htdocs/projetWeb2A/controller/LivraisonC.php';
-include 'c:xampp/htdocs/projetWeb2A/model/Livraison.php';
+    <center>
+        <h1>Liste des Livraisons</h1>
+    </center>
 
-$livraison = new LivraisonC();
-$tab = $livraison->listLivraisons();
-
-?>
-
-<center>
-    <h1>Liste des Livraisons</h1>
-    
-</center>
-<table border="1" align="center" width="70%">
-    <tr>
-        <th>Id Livraison</th>
-        <th>DateLivraison</th>
-        <th>AdresseLivraison</th>
-        <th>StatutLivraison</th>
-    </tr>
-
-
-    <?php
-    foreach ($tab as $livraison) {
-    ?>
-    
+    <table border="1" align="center" width="70%">
         <tr>
-            <td><?= $livraison['IdLivraison']; ?></td>
-            <td><?= $livraison['DateLivraison']; ?></td>
-            <td><?= $livraison['AdresseLivraison']; ?></td>
-            <td><?= $livraison['StatutLivraison']; ?></td>
-            <td><form action="updateLivraison.php" method="post">
-                <input type="submit" name="update" value="update">
-                <input type="hidden" value=<?php echo $livraison['IdLivraison'];?> name="idliv">
-            </form></td>
-            <td>
-                <a href="deletelivraison.php?IdLivraison=<?php echo $livraison['IdLivraison'];?>">supprimer</a>
-            </td>
+            <th>Id Livraison</th>
+            <th>Date Livraison</th>
+            <th>Adresse Livraison</th>
+            <th>Statut Livraison</th>
+            <th>Action</th>
         </tr>
-        
-    <?php
-    }
-    ?>
+
+        <?php foreach ($tab as $livraison) { ?>
+            <tr>
+                <td><?= $livraison['IdLivraison']; ?></td>
+                <td><?= $livraison['DateLivraison']; ?></td>
+                <td><?= $livraison['AdresseLivraison']; ?></td>
+                <td><?= $livraison['StatutLivraison']; ?></td>
+                <td align="center">
+                    <form method="POST" action="updateLivraison.php">
+                        <input type="submit" name="update" value="Update">
+                        <input type="hidden" value="<?= $livraison['IdLivraison']; ?>" name="IdLivraison">
+                    </form>
+                    <a href="deletelivraison.php?id=<?= $livraison['IdLivraison']; ?>">Delete</a>
+                </td>
+            </tr>
+        <?php } ?>
+
+    </table>
+
+    <center>
+        <!-- Export Button -->
+        <form method="POST" action="export.php">
+            <input type="submit" name="export" value="Export Latest File">
+        </form>
+
+        <!-- Delete Button -->
+        <form method="POST" action="deleteivraison.php">
+            <input type="submit" name="delete" value="Delete All">
+        </form>
+    </center>
+
+</body>
+</html>
+
 </table>
 

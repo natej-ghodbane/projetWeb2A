@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css.css" />
-    <title>liste</title>
+    <title>reclamation</title>
     <style>
         * {
           box-sizing: border-box;
@@ -91,40 +93,45 @@
 <br>
 <?php
 
-include 'c:xampp/htdocs/projetWeb2A/controller/LivraisonC.php';
-include 'c:xampp/htdocs/projetWeb2A/model/Livraison.php';
+include 'c:xampp/htdocs/projetWeb2A/controller/LivreurC.php';
+include 'c:xampp/htdocs/projetWeb2A/model/livreur.php';
 
-$livraison = new LivraisonC();
-$tab = $livraison->listLivraisons();
+$livreur = new LivreurC();
+$tab = $livreur->listlivreurs();
 
 ?>
 
 <center>
-    <h1>Liste des Livraisons</h1>
+    <h1>Liste des listlivreurs</h1>
     
 </center>
 <table border="1" align="center" width="70%">
     <tr>
-        <th>Id Livraison</th>
-        <th>DateLivraison</th>
-        <th>AdresseLivraison</th>
-        <th>StatutLivraison</th>
-        
+        <th>Id livreur</th>
+        <th>nom_livreur</th>
+        <th>numero_tel</th>
+        <th>StatutLivreur</th>
+        <th>idlivraison</th>
     </tr>
 
 
     <?php
-    foreach ($tab as $livraison) {
+    foreach ($tab as $livreur) {
     ?>
     
         <tr>
-            <td><?= $livraison['IdLivraison']; ?></td>
-            <td><?= $livraison['DateLivraison']; ?></td>
-            <td><?= $livraison['AdresseLivraison']; ?></td>
-            <td><?= $livraison['StatutLivraison']; ?></td>
-          
+            <td><?= $livreur['idlivreur']; ?></td>
+            <td><?= $livreur['nom_livreur']; ?></td>
+            <td><?= $livreur['numero_tel']; ?></td>
+            <td><?= $livreur['statut_livreur']; ?></td>
+            <td><?= $livreur['idlivraison']; ?></td>
+            <td><form action="updatelivreur.php" method="post">
+            <a href="updatelivreur.php?idlivreur=<?php echo $livreur['idlivreur'];?>">update</a>
+                <input type="hidden" value=<?php echo $livreur['idlivreur'];?> name="idliv">
             </form></td>
-
+            <td>
+                <a href="deletelivreur.php?idlivreur=<?php echo $livreur['idlivreur'];?>">supprimer</a>
+            </td>
         </tr>
         
     <?php

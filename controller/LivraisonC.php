@@ -1,5 +1,5 @@
 <?php
-include "c:xampp/htdocs/projetWeb2A/config.php";
+include "c:xampp/htdocs/projetWeb2A/configuration.php";
 
 class LivraisonC
 {
@@ -42,21 +42,19 @@ class LivraisonC
 
     function addLivraison($livraison)
     {
-        $sql = "INSERT INTO livraison 
-        VALUES (NULL,:DateLivraison, :AdresseLivraison,:StatutLivraison)";
+        $sql = "INSERT INTO livraison (AdresseLivraison, StatutLivraison) VALUES (:adresse, :statut)";
         $db = config::getConnexion();
+        
         try {
             $query = $db->prepare($sql);
-            $query->execute([
-                'DateLivraison' => $livraison->getDateLivraison(),
-                'AdresseLivraison' => $livraison->getAdresseLivraison(),
-                'StatutLivraison' => $livraison->getStatutLivraison(),
-            ]);
-        } catch (Exception $e) {
-            echo 'Error: ' . $e->getMessage();
+            $query->bindValue(':adresse', $livraison->getAdresseLivraison());
+            $query->bindValue(':statut', $livraison->getStatutLivraison());
+            $query->execute();
+        } catch (PDOException $e) {
+            echo 'Error inserting Livraison: ' . $e->getMessage();
         }
-   
     }
+    
     
 
 
@@ -74,26 +72,26 @@ class LivraisonC
         }
     }
 
-    function updateLivraison($livraison, $idLivraison)
+    function updateLivraison($livraison, $id)
     {
         try {
             $db = config::getConnexion();
             $query = $db->prepare(
-                'UPDATE livraison SET 
-               
-                    StatutLivraiso,= :StatutLivraison
-                WHERE IdLivraison= :IdLivraison'
+                'UPDATE livraison SET  
+                StatutLivraison = :StatutLivraison
+                WHERE IdLivraison = :IdLivraison'
             );
             $query->execute([
-             
-                'StatutLivraison' => $livraison->getStatutLivraison(),
-                
+                'IdLivraison' => $id,
+                'StatutLivraison' => $livraison->getStatutLivraison()
             ]);
+    
             echo $query->rowCount() . " records UPDATED successfully <br>";
         } catch (PDOException $e) {
-            $e->getMessage();
+            echo 'Error updating Livraison: ' . $e->getMessage(); // Ajout de l'affichage du message d'erreur
         }
     }
+    
 
 
 

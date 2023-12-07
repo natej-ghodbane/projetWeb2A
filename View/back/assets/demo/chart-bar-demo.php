@@ -1,3 +1,21 @@
+
+<?php
+require 'C:\xampp\htdocs\projetWeb2A\configuration.php';
+
+$db = config::getConnexion();
+$sql = "SELECT COUNT(StatutLivraison) AS nombreorders FROM livraison WHERE StatutLivraison='livrée' ";
+$query = $db->prepare($sql);
+$query->execute();
+$result = $query->fetch(PDO::FETCH_ASSOC);
+$nombreorders = $result['nombreorders'];
+
+$sql1 = "SELECT COUNT(StatutLivraison) AS nombreorders FROM livraison WHERE StatutLivraison='non livrée' ";
+$query1 = $db->prepare($sql1);
+$query1->execute();
+$result1 = $query1->fetch(PDO::FETCH_ASSOC);
+$nombreorders2 = $result1['nombreorders'];
+ ?>
+
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
@@ -7,12 +25,12 @@ var ctx = document.getElementById("myBarChart");
 var myLineChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["January", "February", "March", "April", "May", "June"],
+    labels: ["livrée", "non livrée"],
     datasets: [{
       label: "Revenue",
       backgroundColor: "rgba(2,117,216,1)",
       borderColor: "rgba(2,117,216,1)",
-      data: [4215, 5312, 6251, 7841, 9821, 14984],
+      data: [<?php echo"$nombreorders";  ?>, <?php echo"$nombreorders2" ;?>],
     }],
   },
   options: {
@@ -31,7 +49,7 @@ var myLineChart = new Chart(ctx, {
       yAxes: [{
         ticks: {
           min: 0,
-          max: 15000,
+          max: 100,
           maxTicksLimit: 5
         },
         gridLines: {

@@ -1,11 +1,11 @@
 
 <?php
 
-include 'c:xampp/htdocs/projetWeb2A/controller/LivraisonC.php';
-include 'c:xampp/htdocs/projetWeb2A/model/Livraison.php';
+include 'c:xampp/htdocs/projetWeb2A/controller/LivreurC.php';
+include 'c:xampp/htdocs/projetWeb2A/model/livreur.php';
 
-$livreur = new LivraisonC();
-$tab = $livreur->listLivraisons();
+$livreur = new LivreurC();
+$tab = $livreur->listlivreurs();
 
 
 
@@ -28,7 +28,7 @@ $tab = $livreur->listLivraisons();
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.php">MartMint</a>
+            <a class="navbar-brand ps-3" href="index.html">MartMint</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -101,30 +101,41 @@ $tab = $livreur->listLivraisons();
                                 Order Table
                             </div>
                             <div class="card-body">
-                            <table id="datatablesSimple">
-                        <thead>
-                            <tr>
-                                <th>idlivraison</th>
-                                <th>date</th>
-                                <th>adresse</th>
-                                <th>statut</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <?php foreach ($tab as $livraison) { ?>
-                            <tr>
-                                <td><?= $livraison['IdLivraison']; ?></td>
-                                <td><?= $livraison['DateLivraison']; ?></td>
-                                <td><?= $livraison['AdresseLivraison']; ?></td>
-                                <td><?= $livraison['StatutLivraison']; ?></td>
-                                <td>
-                                <a href="updateLivraison.php?IdLivraison=<?= $livraison['IdLivraison']; ?>">update</a>
-                                    <a href="deletelivraison.php?IdLivraison=<?= $livraison['IdLivraison']; ?>">supprimer</a>
-                                    <a href="export.php?IdLivraison=<?= $livraison['IdLivraison']; ?>">exporter</a>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                    </table>
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>IdLivreur</th>
+                                            <th>nom</th>
+                                            <th>numero</th>
+                                            <th>statut</th>
+                                            <th>idlivraison</th>
+                                        </tr>
+                                    </thead>
+                                    <?php
+    foreach ($tab as $livreur) {
+    ?>
+      <tr>
+            <td><?= $livreur['IdLivreur']; ?></td>
+            <td><?= $livreur['nom_livreur']; ?></td>
+            <td><?= $livreur['numero_tel']; ?></td>
+            <td><?= $livreur['statutlivreur']; ?></td>
+            <td><form action="updatelivreur.php" method="post">
+            
+            
+            </form></td>
+            <form method="POST" action="updatelivreur.php">
+                        <input type="submit" name="update" value="Update">
+                        <input type="hidden" value="<?= $livreur['IdLivreur']; ?>" name="IdLivreur">
+                    </form>
+            <td>
+                <a href="deletelivreur.php?IdLivreur=<?php echo $livreur['IdLivreur'];?>">supprimer</a>
+            </td>
+        </tr>
+        
+    <?php
+    }
+    ?>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -145,8 +156,10 @@ $tab = $livreur->listLivraisons();
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.php"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
     </body>
 </html>
+
+
