@@ -1,6 +1,6 @@
 <?php
 
- require '../../config.php';
+ require 'C:\xampp\htdocs\projet\config.php';
 // require 'C:\xampp\htdocs\projet\View\front\config2.php';
 // require '../../Model/Client.php';
 
@@ -135,7 +135,16 @@ class ClientC
             echo 'Error: ' . $e->getMessage();
         }
     }
-
+    function trierannonces(){
+        $sql = "SELECT * FROM utilisateur ORDER BY id DESC";
+        $projetweb = config::getConnexion();
+        try {
+            $req = $projetweb->query($sql);
+            return $req;
+        } catch (Exception $e) {
+            echo 'Erreur: ' . $e->getMessage();
+        }
+    }
 
 
 

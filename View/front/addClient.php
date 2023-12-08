@@ -1,5 +1,5 @@
 <?php
-include "../../Controller/clientC.php";
+include 'C:\xampp\htdocs\projet\Controller\clientC.php';
 include 'C:\xampp\htdocs\projet\Model\Client.php';
 /*include '../Controller/clientC.php';*/
 /*include '../../Model/Client.php';*/

@@ -1,7 +1,7 @@
 <?php
 
-include '../Controller/ClientC.php';
-include '../model/Client.php';
+include 'C:\xampp\htdocs\projet\Controller\clientC.php';
+include 'C:\xampp\htdocs\projet\Model\Client.php';
 
 $error = "";
 
@@ -17,7 +17,7 @@ if (
     isset($_POST["Adresse"])&&
     isset($_POST["Email"]) &&
     isset($_POST["Adresse"])&&
-    isset($_POST["Occupation"]) &&
+    isset($_POST["Occupation"]) 
 
 ) {
     if (

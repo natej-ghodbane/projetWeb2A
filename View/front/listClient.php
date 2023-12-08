@@ -1,5 +1,5 @@
 <?php
-include "../../Controller/clientC.php";
+include 'C:\xampp\htdocs\projet\Controller\clientC.php';
 
 $c = new ClientC();
 $tab = $c->listClients();

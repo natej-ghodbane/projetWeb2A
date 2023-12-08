@@ -2,10 +2,8 @@
 
 <?php
 session_start();
-
-//require('C:\xampp\htdocs\projet\config.php');
-include 'C:\xampp\htdocs\projetghalia\projet\Controller\clientC.php';
-include '../../Model/Client.php';
+include 'C:\xampp\htdocs\projet\Controller\clientC.php';
+include 'C:\xampp\htdocs\projet\Model\Client.php';
 require_once('config2.php');
 $db=config::getConnexion();
 
@@ -24,7 +22,7 @@ if (isset($_SESSION['Email'])) {
  
           if(filter_var($Email, FILTER_VALIDATE_EMAIL))
           {
-               //$sql = "SELECT * FROM utilisateur WHERE Email = :E mail ";
+
                $res=clientC::listClients($db);
               
                foreach($res as $t){
@@ -128,7 +126,7 @@ if (
                          <input type="text" name="Email2" placeholder="Enter Email" class="form-control">
                          <input type="password" name="Motdepasse2" placeholder="Enter Password" class="form-control">
     
-        <a href="">Forgot password?</a> 
+        <a href="oublie.php">Forgot password?</a> 
          <input type="submit" name="submit" class="button" value="Login">
 
 
@@ -143,7 +141,7 @@ if (
 
     <div class="registration form">
       <header>Signup</header>
-      <form action="" method="POST" onsubmit="return test()" >
+      <form action="" method="POST" <?php /* onsubmit="return test()" */?>> 
         <input type="text" name="nom" id="nom" placeholder="Enter your FirstName">
         <input type="text" name="prenom" id="prenom" placeholder="Enter your LastName">
         <input type="password" name="Motdepasse" id="Motdepasse" placeholder="Create a password">

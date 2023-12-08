@@ -1,6 +1,6 @@
 <?php
-require '../../config.php';
-include '../../Controller/clientC.php';
+require 'C:\xampp\htdocs\projet\config.php';
+include 'C:\xampp\htdocs\projet\Controller\clientC.php';
 $db=config::getConnexion();
 $id=$_GET['id'];
 

@@ -11,10 +11,6 @@ session_start();
 
 ?> -->
 
-
-
-
-
 <!DOCTYPE html>
 <html>
 
@@ -35,9 +31,9 @@ session_start();
     <header>
 
         <div class="header">
-            <a href="index.html" class="logo"><img src="images/logo.png" alt=""></a>
+            <a href="index.php" class="logo"><img src="images/logo.png" alt=""></a>
             <div class="header-right">
-              <a href="index.html">Home</a>
+              <a href="index.php">Home</a>
               <a href="blog.html">BLOG</a>
               <a href="login.php">Se Connecter</a>
               <a href="panier.html" class="fas fa-shopping-cart"></a>

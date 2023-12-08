@@ -7,7 +7,7 @@
 
 <?php
 session_start();
-require 'C:\xampp\htdocs\projetghalia\projet\config.php';
+require 'C:\xampp\htdocs\projet\config.php';
 $db=config::getConnexion();
 $id=$_SESSION['id'];
 
