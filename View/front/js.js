@@ -3,6 +3,7 @@ function test(){
     prenom=document.getElementById("prenom").value;
     ville=document.getElementById("ville").value;
     sujet=document.getElementById("sujet").value;
+   
 
     if(nom.length==0 ){
         alert("nom invalid");
@@ -20,5 +21,6 @@ function test(){
         alert("sujet invalid");
         return false;
     }
-
+    
 }
+

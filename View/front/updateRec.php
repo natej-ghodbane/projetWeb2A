@@ -29,13 +29,16 @@ if (
         $error = "Missing information";
   }
 ?>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <style>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="css.css" />
+  <style>
         * {
           box-sizing: border-box;
         }
@@ -113,27 +116,41 @@ if (
           background-color: #ddd;
         }
         </style>
+  <title>MediMart</title>
+  
+
 </head>
 
 <body>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Display</title>
-</head>
+
+    <header>
+
+        <div class="header">
+            <a href="index.html" class="logo"><img src="images/logo.png" alt=""></a>
+            <div class="header-right">
+              <a href="index.html">Home</a>
+              <a href="blog.html">BLOG</a>
+              <a href="login.html">Se Connecter</a>
+              <a href="panier.html" class="fas fa-shopping-cart"></a>
+              <a href="reclamation.html" class="fas fa-headphones"></a>
+            </div>
+          </div>
+          
+   </header>
 
 <body>
+
 
 
     <div id="error">
         <?php echo $error; ?>
     </div>
 
+<br><br><br>
+<center><h2>Modification de la reclamation</h2></center>
 
-
-<div class="registration form">
+  <div class="container">
       <form action="" method="POST" >
       
       <?php
@@ -141,18 +158,69 @@ if (
         $reclamation = $rec->showrec($_POST['id']);}
 
     ?>
-        <input type="text" name="id" id="id"  readonly value=" <?php echo $reclamation['idrec']; ?>" >
-        <input type="text" name="n" id="n" readonly value=" <?php echo $reclamation['nom']; ?>">
-        <input type="text" name="p" id="prenom"  readonly value=" <?php echo $reclamation['prenom']; ?>">
-        <input type="text" name="date" id="date"  readonly value=" <?php echo $reclamation['date']; ?>">
-        <input type="text" name="ville" id="sujet"  readonly value=" <?php echo $reclamation['ville']; ?>">
-        <input type="text" name="sujet" id="sujet"  value=" <?php echo $reclamation['sujetrec']; ?>">
-        <input type="submit"  value="Update">
-      </form>
+       <div class="row">
+        <div class="col-25">
+         <label for="nom"> ID reclamation</label>
+         </div>
+        <div class="col-75">
+          <input type="text" name="id" id="id"  readonly value=" <?php echo $reclamation['idrec']; ?>" >
+        </div>
+        </div>
+        <div class="row">
+      <div class="col-25">
+        <label for="nom"> Nom</label>
       </div>
+      <div class="col-75">
+      <input type="text" name="n" id="n" readonly value=" <?php echo $reclamation['nom']; ?>">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="prenom"> Prenom</label>
+      </div>
+      <div class="col-75">
+      <input type="text" name="p" id="prenom"  readonly value=" <?php echo $reclamation['prenom']; ?>">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="prenom"> Date</label>
+      </div>
+      <div class="col-75">
+      <input type="text" name="date" id="date"  readonly value=" <?php echo $reclamation['date']; ?>">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="ville">ville</label>
+      </div>
+      <div class="col-75">
+      <input type="text" name="ville" id="sujet"  readonly value=" <?php echo $reclamation['ville']; ?>">
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-25">
+        <label for="sujet">Sujet du reclamation</label>
+      </div>
+      <div class="col-75">
+      <input type="text" name="sujet" id="sujet"  value=" <?php echo $reclamation['sujetrec']; ?>">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-75">
+      <input type="submit"  value="Update">
+        </div>
+    </div>
+  </div>
+</form>
     <?php
     
     ?>
 </body>
 
 </html>
+
+   
+    

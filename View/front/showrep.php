@@ -28,7 +28,7 @@ $reclamation = $c->showreponse($_GET['id']);
   </div>
   
 </header>
-
+<?php  if ($reclamation->rowCount() > 0){?>
 <center>
     <h1>Liste des reponses</h1>
 </center>
@@ -37,7 +37,6 @@ $reclamation = $c->showreponse($_GET['id']);
         <th>ID reponse </th>
         <th>Reponse</th>
         <th>Id reclamation</th>
-        <th>Update</th>
         <th>Delete</th>
     </tr>
 
@@ -49,12 +48,6 @@ $reclamation = $c->showreponse($_GET['id']);
                 <td><?php  echo  $tab['idrep']; ?></td>
                 <td><?php  echo $tab['reponse'] ;?></td>
                 <td><?php  echo $tab['idrec']; ?></td>
-                <td align="center">
-                    <form method="POST" action="updateRec.php">
-                    <input type="submit" name="update" value="Update">
-                        <input type="hidden" value=<?php echo $tab['idrec']; ?> name="id">
-                    </form>
-                </td>
                 <td>
                     <a href="deleteRep.php?id=<?= $tab['idrep']; ?>">Delete</a>
                 </td>
@@ -62,3 +55,12 @@ $reclamation = $c->showreponse($_GET['id']);
     <?php }
     ?>
 </table>
+<?php 
+}else {
+    
+    ?>
+    <center><h2>Aucune reponse trouvee!</h2></center>
+    <?php
+}
+
+?>

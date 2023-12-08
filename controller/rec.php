@@ -103,6 +103,39 @@ class reclamation
             die('Error: ' . $e->getMessage());
         }
     }
+    function showreccount1(){
+        $sql = "SELECT count(*) from reclamation where ville='Tunis'";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $r=$query->execute();
+            return $r;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+    function showreccount2(){
+        $sql = "SELECT count(*) from reclamation where ville='Ariana'";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $r=$query->execute();
+            return $r;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+    function showreccount3(){
+        $sql = "SELECT count(*) from reclamation where ville='Ben arous'";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $r=$query->execute();
+            return $r;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
 }
 
 

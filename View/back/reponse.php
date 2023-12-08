@@ -112,6 +112,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Reclamations
                             </a>
+                            <a class="nav-link" href="listerep.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Reponses
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -130,7 +134,7 @@
     <form action="addRep.php" method="post"  >  
     <div class="row">
       <div class="col-25">
-        <label for="sujet">reponse</label>
+        <label for="sujet"><b>Reponse</b></label>
       </div>
       <div class="col-75">
         <textarea id="reponse" name="reponse" placeholder="votre reponse.." style="height:200px"></textarea>
@@ -145,8 +149,8 @@
         <input type="submit" value="Submit">
       </div>
     </div>
-  </div>
-</form>
+  </form>
+</div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   <script src="js/scripts.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

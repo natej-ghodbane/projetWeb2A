@@ -6,6 +6,22 @@ $c = new reclamation();
 $reclamation = $c->showreclamation($_POST['n'],$_POST['p']);
 
 ?>
+<style>
+    .but{
+          background-color: #123132;
+          color: white;
+          padding: 12px 17px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          text-align: left;
+          text-decoration: none;
+          margin-left: 650px;
+        }
+        .but:hover{
+          background-color: #ddd;
+        }
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,6 +45,7 @@ $reclamation = $c->showreclamation($_POST['n'],$_POST['p']);
   
 </header>
 
+<?php  if ($reclamation->rowCount() > 0){?>
 <center>
     <h1>Liste des reclamations</h1>
 </center>
@@ -42,6 +59,7 @@ $reclamation = $c->showreclamation($_POST['n'],$_POST['p']);
         <th>sujet du reclamation</th>
         <th>Update</th>
         <th>Delete</th>
+        <th>Reponse</th>
     </tr>
 
 
@@ -65,8 +83,20 @@ $reclamation = $c->showreclamation($_POST['n'],$_POST['p']);
                 <td>
                     <a href="deleteRec.php?id=<?= $tab['idrec']; ?>">Delete</a>
                 </td>
+                <td>
+                    
+                <a href="showrep.php?id=<?= $tab['idrec']; ?>">Consulter la reponse</a>
+                </td>
             </tr>
     <?php }
     ?>
 </table>
-<a href="showrep.php?id=<?= $tab['idrec']; ?>">Consulter les reponses</a>
+<?php 
+}else {
+    
+    ?>
+    <center><h2>Aucune reclamation trouvee!</h2></center>
+    <?php
+}
+
+?>
