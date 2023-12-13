@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css.css" />
-    <title>reclamation</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Reclamation</title>
     <style>
         * {
           box-sizing: border-box;
@@ -70,20 +72,33 @@
             margin-top: 0;
           }
         }
+        .but{
+          background-color: #123132;
+          color: white;
+          padding: 12px 20px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          text-align: left;
+          text-decoration: none;
+        }
+        .but:hover{
+          background-color: #ddd;
+        }
         </style>
 </head>
 <body>
     <header>
 
-        <div class="header">
-            <a href="index.html" class="logo"><img src="images/logo.png" alt=""></a>
-            <div class="header-right">
-              <a href="index.html">Home</a>
-              <a href="blog.html">BLOG</a>
-              <a href="login.html">Se Connecter</a>
-              <a href="panier.html" class="fas fa-shopping-cart"></a>
-              <a href="reclamation.html" class="fas fa-headphones"></a>
-            </div>
+      <div class="header">
+        <a href="index.php" class="logo"><img src="images/logo.png" alt=""></a>
+        <div class="header-right">
+          <a href="index.php">Home</a>
+          <a href="blog.html">BLOG</a>
+          <a href="login.html">Se Connecter</a>
+          <a href="panier.html" class="fas fa-shopping-cart"></a>
+          <a href="reclamation.html" class="fas fa-headphones"></a>
+        </div>
           </div>
           
    </header>
@@ -91,7 +106,7 @@
    <h1 style="text-align: center;">Reclamation</h1>
 
    <div class="container">
-    <form action=" ">
+    <form action="addRec.php" method="post" onsubmit="return test()">
     <div class="row">
       <div class="col-25">
         <label for="nom"> Nom</label>
@@ -106,6 +121,14 @@
       </div>
       <div class="col-75">
         <input type="text" id="prenom" name="prenom" placeholder="votre prenom..">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="prenom"> Email</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="email" name="email" placeholder="votre email..">
       </div>
     </div>
     <div class="row">
@@ -131,13 +154,35 @@
     </div>
     <br>
     <div class="row">
-      <input type="submit" value="Submit">
+      <div  class="form-group" style="margin-left: 300px;">
+       <div class="g-recaptcha" data-sitekey="6LfFgCopAAAAAL_Ll_Mftl65Y0IBd4zP2fe3RasP"></div>
+      </div>
     </div>
-    </form>
+    <br>
+    <div class="row">
+        <div class="col-25">
+           <a href="historique.html" class="but">historique</a>
+        </div>
+      <div class="col-75">
+        <input type="submit" value="Submit" id="submit" name="send">
+        
+      </div>
+      
+    </div>
   </div>
-  
-
-
+</form>
    
 </body>
 </html>
+<script>
+$(document).on('click' , '#submit' , function(){
+
+var response = grecaptcha.getResponse();
+if(response.length==0){
+   alert("please verify you are not a robot")
+   return false;
+}
+})
+
+
+</script>
